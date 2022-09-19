@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	  <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+    <title>Chatbot</title>
+	  <!-- chat bubble css -->
+	   <style>
+            .container{
+                width: 100%;
+                height: auto;
+                position:fixed;
+                right:0;
+                bottom:0;
+                font-size: 12px;
+            }
+            .fixedbutton {
+                position: fixed;
+                bottom: 0;
+                right: 0; 
+                margin-right: 50px;
+                margin-bottom: 50px;
+            }
+            
+            .btn {
+                height: 90px;
+                width: 90px;
+                background-color: #3984BE;
+                border-radius: 50%;
+                color: white;
+                font-weight: bold;
+                border: 2px solid #ffffff;
+		cursor: pointer;
+		   
+            }
+            .btnAgent {
+                height: 45px;
+                width: 270px;
+                background-color: #3984BE;
+                border-radius: 25px;
+                color: white !important;
+                font-weight: bold;
+                pointer-events: auto;
+            }
+            
+            .btnAgent a {
+                color: #ffffff !important;
+                text-decoration: none;
+		cursor: pointer;  
+            }
+           
+            
+            .fixedbuttonagent{
+                position: fixed;
+                bottom: 0;
+                right: 0; 
+                margin-right: 50px;
+                margin-bottom: 150px;
+                /* display: none; */
+            }
+             .hide{
+                display: none;
+             }
+            
+          
+           
+           .slds-align_absolute-center {
+                display: -webkit-box;
+                display: -ms-flexbox;
+                /* display: flex; */
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                /* justify-content: center; */
+                -ms-flex-line-pack: center;
+                /* align-content: center; */
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                /* align-items: center; */
+                /* margin: auto; */
+            }
+            
+            
+            
+            
+            .helpButtonEnabled{
+                display: none !important;
+            }
+            .btnMenu{
+                margin: 0 50px 210px 0;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+            }
+        </style>
+   
+  </head>
+  <body>
+  
+<!-- Einstein bot Script -->
+<script type='text/javascript' src='https://service.force.com/embeddedservice/5.0/esw.min.js'></script>
+
+<script type='text/javascript'>
+    
+        var initESW = function(gslbBaseURL) {
+            embedded_svc.settings.displayHelpButton = true; //Or false
+            embedded_svc.settings.language = ''; //For example, enter 'en' or 'en-US'
+    
+            //embedded_svc.settings.defaultMinimizedText = welcomeText; //(Defaults to Chat with an Expert)
+            //embedded_svc.settings.disabledMinimizedText = '...'; //(Defaults to Agent Offline)
+    
+            //embedded_svc.settings.loadingText = ''; //(Defaults to Loading)
+            //embedded_svc.settings.storageDomain = 'yourdomain.com'; //(Sets the domain for your deployment so that visitors can navigate subdomains during a chat session)
+    
+            // Settings for Chat
+            //embedded_svc.settings.directToButtonRouting = function(prechatFormData) {
+                // Dynamically changes the button ID based on what the visitor enters in the pre-chat form.
+                // Returns a valid button ID.
+            //};
+            //embedded_svc.settings.prepopulatedPrechatFields = {}; //Sets the auto-population of pre-chat form fields
+            //embedded_svc.settings.fallbackRouting = []; //An array of button IDs, user IDs, or userId_buttonId
+            //embedded_svc.settings.offlineSupportMinimizedText = '...'; //(Defaults to Contact Us)
+    
+            embedded_svc.settings.enabledFeatures = ['LiveAgent'];
+            embedded_svc.settings.entryFeature = 'LiveAgent';
+            embedded_svc.addEventHandler("afterDestroy", function() {
+                let btn = document.querySelector('.fixedbuttonagent');
+                btn.classList.remove('hide');
+            });
+            embedded_svc.addEventHandler("onHelpButtonClick", function() {
+                let btn = document.querySelector('.fixedbuttonagent');
+                btn.classList.add('hide');
+                console.log("onHelpButtonClick");
+            });
+            
+            embedded_svc.init(
+                'https://lwta--qa.my.salesforce.com',
+                'https://qa-lixilamerica.cs63.force.com/LWTACustomerService',
+                gslbBaseURL,
+                '00D6C0000000y9n',
+                'Bot_Chatbots_Group',
+                {
+                    baseLiveAgentContentURL: 'https://c.la2-c1cs-ia5.salesforceliveagent.com/content',
+                    deploymentId: '5723l000000CmZ3',
+                    buttonId: '5733l000000CnFp',
+                    baseLiveAgentURL: 'https://d.la2-c1cs-ia5.salesforceliveagent.com/chat',
+                    eswLiveAgentDevName: 'Bot_Chatbots_Group',
+                    isOfflineSupportEnabled: false
+                }
+            );
+        };
+    
+        if (!window.embedded_svc) {
+            var s = document.createElement('script');
+            s.setAttribute('src', 'https://lwta--qa.my.salesforce.com/embeddedservice/5.0/esw.min.js');
+            s.onload = function() {
+                initESW(null);
+            };
+            document.body.appendChild(s);
+        } else {
+            initESW('https://service.force.com');
+        }
+   
+	
+</script>
+<!-- Chatbot bubble Script -->
+	<script>
+
+    function showBtn(){
+        let btnagent = document.querySelector('.menu');
+        btnagent.classList.remove('hide');
+    }
+    function hideBtn(){
+        let btnagent = document.querySelector('.menu'); 
+        setTimeout(function() {
+            btnagent.classList.add('hide');
+          }, 2000);
+    }
+    function showBot(){
+        let tiggerBot = document.querySelector('.helpButtonEnabled'); 
+       	tiggerBot.click();
+    }
+	
+
+
+		
+	  </script>
+	  <!-- chatbot bubble -->
+ 		<div class="container">
+            <div>   
+                <div class="hide menu">
+                    <div class="btnMenu">     
+                        <div class="slds-align_absolute-center btnAgent " >
+                           <a >
+                               BOOK A DESIGN CONSULTANT
+                           </a>
+                        </div>
+                    </div>            
+                    <div class="fixedbuttonagent">     
+                        <div class="slds-align_absolute-center btnAgent " >
+                           <a onclick="showBot()">
+                               CHAT &amp; CO-BROWSE WITH AN  AGENT
+                           </a>
+                        </div>
+                    </div>
+                </div> 
+                <div class="fixedbutton" onmouseover="showBtn()" onmouseout="hideBtn()" >     
+                    <div class="slds-align_absolute-center btn">
+                        NEED <br> HELP?
+                    </div>
+                </div>
+            </div>
+        </div>
+	
+  </body>
+</html>
